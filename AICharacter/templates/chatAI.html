@@ -1,0 +1,86 @@
+{% include "header.html" %}
+                
+                <div class="content">
+                    <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+                        
+                       
+                    </div>
+                    <div class="intro-y chat grid grid-cols-12 gap-5 mt-5" style="padding-left: 300px; position: relative;">
+                        <!-- BEGIN: Chat Content -->
+                        <div class="intro-y col-span-12 lg:col-span-8 2xl:col-span-9">
+                            <div class="chat__box box">
+                               
+                               
+                                    
+                                    <div class="overflow-y-scroll px-5 pt-5 flex-1 " style="height: 782px;overflow-y: auto;">
+
+                                        <ul class="list-unstyled messages-list">
+
+                                            <li class="message received">
+                                              <div class="message-text">
+                                                <div class="message-sender">
+                                                  <b>Fin Ally - AI</b>
+                                                </div>
+                                                <div class="message-content">
+                                                    Hi {{x.username}}, How can I help you with your financial research ?
+                                                </div>
+                                              </div>
+                                            </li>
+                                    
+                                    
+                                            {% for chat in chats %}
+                                            {% if chat.user == request.user %}
+                                    
+                                    
+                                            <li class="message sent">
+                                              <div class="message-text">
+                                                <div class="message-sender">
+                                                  <b>You</b>
+                                                </div>
+                                                <div class="message-content">
+                                                  {{chat.message}}
+                                                  <br>
+                                                </div>
+                                              </div>
+                                            </li>
+                                    
+                                            <li class="message received">
+                                              <div class="message-text">
+                                                <div class="message-sender">
+                                                  <b>Fin Ally - AI</b>
+                                                </div>
+                                                <div class="message-content">
+                                                  {{chat.response}}
+                                                  <br>
+                                                </div>
+                                              </div>
+                                            </li>
+                                    
+                                            {% endif %}
+                                            {% endfor %}
+                                    
+                                          </ul>
+
+
+                                       
+                                    </div>
+                                    <form class="message-form">
+                                        {%csrf_token%}
+                                        <div class="input-group">
+                                          <input id="vertical-form-1" type="text" style="width: 200%;" class="form-control message-input" placeholder="Type your message...">
+                                          <!-- <input type="text" class="message-input" placeholder="Type your message..."> -->
+                                          <div class="input-group-append">
+                                            <button type="submit" class="btn btn-primary btn-send">Send</button>
+                                          </div>
+                                        </div>
+                                    </form>
+                               
+                                
+                            </div>
+                        </div>
+                       
+                    </div>
+                </div>
+                
+{% include "footer.html" %}
+    

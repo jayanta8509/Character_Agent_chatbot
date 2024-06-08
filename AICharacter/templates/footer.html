@@ -1,0 +1,70 @@
+</div>
+<!-- BEGIN: Dark Mode Switcher-->
+
+<!-- END: Dark Mode Switcher-->
+
+<!-- BEGIN: JS Assets-->
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
+<script src="/static/dist/js/app.js"></script>
+<!-- END: JS Assets-->
+<script>
+    const messagesList = document.querySelector('.messages-list');
+    const messageForm = document.querySelector('.message-form');
+    const messageInput = document.querySelector('.message-input');
+  
+    messageForm.addEventListener('submit', (event) => {
+      event.preventDefault();
+  
+      const message = messageInput.value.trim();
+      if (message.length === 0) {
+        return;
+      }
+  
+      const messageItem = document.createElement('li');
+      messageItem.classList.add('message', 'sent');
+      messageItem.innerHTML = `
+        <div class="message-text">
+          <div class="message-sender">
+            <b>You</b>
+          </div>
+          <div class="message-content">
+            ${message}
+            <br>
+          </div>
+        </div>`;
+      messagesList.appendChild(messageItem);
+  
+      messageInput.value = '';
+  
+      fetch('', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+          'csrfmiddlewaretoken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+          'message': message
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          const response = data.response;
+          const messageItem = document.createElement('li');
+          messageItem.classList.add('message', 'received');
+          messageItem.innerHTML = `
+          <div class="message-text">
+            <div class="message-sender">
+              <b>AI ChatAI</b>
+            <div>
+            <div class="message-content">
+              ${response}
+              <br>
+            </div>
+          </div>
+          `;
+          messagesList.appendChild(messageItem);
+        });
+    });
+  
+</script>
+</body>
+</html>
