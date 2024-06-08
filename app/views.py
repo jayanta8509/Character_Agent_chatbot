@@ -13,7 +13,7 @@ from django.http import JsonResponse
 
 # prompt
 from langchain_core.prompts import ChatPromptTemplate
-
+# Specific character prompt comming from user
 def create_dynamic_prompt(role, guidelines, example_queries,response_style,name,tackline):
     prompt = ChatPromptTemplate.from_messages([
         ("system", f"""
@@ -57,6 +57,7 @@ google_api_key = os.getenv("GOOGLE_API_KEY")
 os.environ["LANGCHAIN_TRACING_V2"]="true"
 langchain_api_key = os.getenv("LANGCHAIN_API_KEY")
 
+# Global prompt comming from system, if user not create character
 name = """Jayanta"""
 tackline = """
 - an expert Generative AI.
