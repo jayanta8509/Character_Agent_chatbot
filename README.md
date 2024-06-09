@@ -21,3 +21,9 @@
 - Navigate to the virtual enviroment and run "pip install -r requirements.txt"
 - Run "python manage.py runserver"
 
+# Demo
+
+
+
+https://github.com/jayanta8509/Character_Agent_chatbot/assets/93045961/701bb329-c021-48c6-978a-d0a33ab87c55
+
