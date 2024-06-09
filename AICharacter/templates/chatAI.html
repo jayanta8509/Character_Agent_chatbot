@@ -10,32 +10,45 @@
                         <div class="intro-y col-span-12 lg:col-span-8 2xl:col-span-9">
                             <div class="chat__box box">
                                
-                               
+                                    <div class="h-full flex flex-col">
+                                      <div class="flex flex-col sm:flex-row border-b border-slate-200/60 dark:border-darkmode-400 px-5 py-4">
+                                        <div class="flex items-center">
+                                          <div class="w-10 h-10 sm:w-12 sm:h-12 flex-none image-fit relative">
+                                            <img alt="" class="rounded-full" src="/static/dist/images/ai-bot.png">
+                                          </div>
+                                            
+                                            <div class="ml-3 mr-auto">
+                                                <div class="font-medium text-base">{{details.name}}</div>
+                                                <div class="text-slate-500 text-xs sm:text-sm"><span class="mx-1">•</span> Online</div>
+                                            </div>
+                                        </div>
+                                        
+                                       </div>
                                     
                                     <div class="overflow-y-scroll px-5 pt-5 flex-1 " style="height: 782px;overflow-y: auto;">
 
                                         <ul class="list-unstyled messages-list">
-
+                                          
                                             <li class="message received">
                                               <div class="message-text">
                                                 <div class="message-sender">
-                                                  <b>Fin Ally - AI</b>
+                                                  <b>{{details.name}}</b>
                                                 </div>
-                                                <div class="message-content">
-                                                    Hi {{x.username}}, How can I help you with your financial research ?
+                                                <div class="message-content ">
+                                                    {{details.tagline}}
                                                 </div>
                                               </div>
                                             </li>
-                                    
+                                          
                                     
                                             {% for chat in chats %}
                                             {% if chat.user == request.user %}
                                     
-                                    
+                                            
                                             <li class="message sent">
                                               <div class="message-text">
                                                 <div class="message-sender">
-                                                  <b>You</b>
+                                                  <b>{{user.name}}</b>
                                                 </div>
                                                 <div class="message-content">
                                                   {{chat.message}}
@@ -43,11 +56,11 @@
                                                 </div>
                                               </div>
                                             </li>
-                                    
+                                            
                                             <li class="message received">
                                               <div class="message-text">
                                                 <div class="message-sender">
-                                                  <b>Fin Ally - AI</b>
+                                                  <b>{{details.name}}</b>
                                                 </div>
                                                 <div class="message-content">
                                                   {{chat.response}}
@@ -59,11 +72,11 @@
                                             {% endif %}
                                             {% endfor %}
                                     
-                                          </ul>
+                                          </ul> 
 
 
                                        
-                                    </div>
+                                  </div>
                                     <form class="message-form">
                                         {%csrf_token%}
                                         <div class="input-group">
@@ -75,7 +88,7 @@
                                         </div>
                                     </form>
                                
-                                
+                            </div>
                             </div>
                         </div>
                        

@@ -1,13 +1,9 @@
 </div>
-<!-- BEGIN: Dark Mode Switcher-->
 
-<!-- END: Dark Mode Switcher-->
-
-<!-- BEGIN: JS Assets-->
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=["your-google-map-api"]&libraries=places"></script>
 <script src="/static/dist/js/app.js"></script>
-<!-- END: JS Assets-->
+
 <script>
     const messagesList = document.querySelector('.messages-list');
     const messageForm = document.querySelector('.message-form');
@@ -26,7 +22,7 @@
       messageItem.innerHTML = `
         <div class="message-text">
           <div class="message-sender">
-            <b>You</b>
+            <b>{{user.name}}</b>
           </div>
           <div class="message-content">
             ${message}
@@ -53,7 +49,7 @@
           messageItem.innerHTML = `
           <div class="message-text">
             <div class="message-sender">
-              <b>AI ChatAI</b>
+              <b>{{details.name}}</b>
             <div>
             <div class="message-content">
               ${response}

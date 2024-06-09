@@ -13,7 +13,7 @@ from django.http import JsonResponse
 
 # prompt
 from langchain_core.prompts import ChatPromptTemplate
-# Specific character prompt comming from user
+# Global prompt comming from system, if user not create character
 def create_dynamic_prompt(role, guidelines, example_queries,response_style,name,tackline):
     prompt = ChatPromptTemplate.from_messages([
         ("system", f"""
@@ -81,6 +81,7 @@ response_style = """
 - Prioritize user education and provide additional resources when necessary.
 """
 
+# Specific character prompt comming from user
 def create_dynamic_prompt_from_data(prompt_data):
     prompt = ChatPromptTemplate.from_messages([
                 ("system", f"""
@@ -109,11 +110,11 @@ def prompts(request):
     prompt_data = request.session.get('dynamic_prompt_data')
     if prompt_data:
         dynamic_prompt = create_dynamic_prompt_from_data(prompt_data)
-        print(dynamic_prompt)
+        
         return dynamic_prompt
     else:
         dynamic_prompt = create_dynamic_prompt(role_text, guidelines_text, example_queries_text,response_style,name,tackline)
-        print(dynamic_prompt)
+        
         return dynamic_prompt
 
 
@@ -175,11 +176,11 @@ def genrate(request, query_data, dynamic_prompt):
 def register(request):
     if request.method=='POST':
         uemail=request.POST.get('email')
-        print(uemail)
+        
         name=request.POST.get('name')
         country=request.POST.get('country')
        
-        password=request.POST.get('pass')
+        password=request.POST.get('password')
 
         details = user_details(
                                name = name,
@@ -214,22 +215,22 @@ def logout_user(request):
 def ai_chat(request):
     try:
         user = user_details.objects.get(id=request.session['userid'])
-        print("user_id", user.id)
+        
         if request.method == 'POST':
             message = request.POST.get('message')
-            print(message)
+            
             dynamic_prompt = prompts(request)  # Get the dynamic prompt
-            print(dynamic_prompt)
+            
             check = genrate(request, message, dynamic_prompt)  # Pass dynamic_prompt to genrate
             if check is not None:
                 return JsonResponse({'message': message, 'response': check})
-        return render(request, 'chatAI.html', {"user": user})
+        return render(request, 'chatAI.html', {"user": user,"details":request.session['profile']})
 
     except user_details.DoesNotExist:
         messages.error(request, 'User not found.')
         return redirect('login')
     except Exception as e:
-        print(f"Error: {e}")
+        
         messages.error(request, 'An error occurred.')
         return redirect('login')
 
@@ -240,11 +241,11 @@ def profile_setup(request):
         name=request.POST.get('name')
         date=request.POST.get('date')
         tagline=request.POST.get('tagline')
+        print(tagline)
         descrip=request.POST.get('descrip')
         about=request.POST.get('about')
         greet=request.POST.get('greet')
         visible=request.POST.get('visible')
-
         request.session['profile'] = {
             'name': name,
             'tagline': tagline,
