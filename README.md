@@ -1,4 +1,4 @@
-#Technologies used
+# Technologies used
 - Django
 - LangChain to build LLM application
 - MySQL ( database hosted in Railway.app)
